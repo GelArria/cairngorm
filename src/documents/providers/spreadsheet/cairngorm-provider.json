@@ -1,0 +1,60 @@
+{
+  "protocol": "cairngorm.document-provider/1",
+  "id": "app.cairngorm.spreadsheet",
+  "name": "Spreadsheet editor",
+  "version": "1.1.0",
+  "description": "Edit Excel workbooks (.xlsx) inside Cairngorm. Saving rewrites only the cells you change.",
+  "entry": "index.html",
+  "fileTypes": [
+    {
+      "label": "Excel workbook",
+      "extensions": ["xlsx"],
+      "mimeTypes": ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"],
+      "template": "blank.xlsx"
+    }
+  ],
+  "capabilities": ["view", "edit"],
+  "maxBytes": 33554432,
+  "operations": [
+    {
+      "name": "list-sheets",
+      "description": "List the workbook's worksheets and which one is shown."
+    },
+    {
+      "name": "read-range",
+      "description": "Read cell values as shown (unsaved changes included) from a range such as A1:D20, at most 10,000 cells.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "range": { "type": "string", "description": "A1-style range, e.g. A1:D20" },
+          "sheet": {
+            "type": "string",
+            "description": "Worksheet name; the shown sheet when omitted"
+          }
+        },
+        "required": ["range"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "set-cells",
+      "description": "Set cells like typing them: numbers, text, TRUE/FALSE, null to clear, or formulas starting with =. At most 1,000 cells; formulas are calculated when the file is opened in Excel.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cells": {
+            "type": "object",
+            "description": "Map of cell reference to value, e.g. { \"B2\": 5, \"C2\": \"=B2*2\" }",
+            "additionalProperties": { "type": ["string", "number", "boolean", "null"] }
+          },
+          "sheet": {
+            "type": "string",
+            "description": "Worksheet name; the shown sheet when omitted"
+          }
+        },
+        "required": ["cells"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

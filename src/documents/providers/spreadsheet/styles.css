@@ -1,0 +1,280 @@
+:root {
+  color-scheme: light dark;
+  --background: #ffffff;
+  --foreground: #1c1c1c;
+  --muted: #6b6b6b;
+  --border: #e4e4e4;
+  --accent: #2563eb;
+  --surface: color-mix(in srgb, var(--foreground) 3%, var(--background));
+  --head: color-mix(in srgb, var(--foreground) 5%, var(--background));
+  --head-active: color-mix(in srgb, var(--accent) 16%, var(--background));
+  --row-height: 26px;
+  --head-width: 52px;
+  font:
+    12px/1.4 system-ui,
+    "Segoe UI",
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  overflow: hidden;
+}
+
+.sheet-app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+}
+
+.sheet-app[hidden] {
+  display: none;
+}
+
+.loading {
+  margin: 24px;
+  color: var(--muted);
+}
+
+/* Name box and formula bar */
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.bar input {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--background);
+  color: inherit;
+  font: inherit;
+}
+
+.bar input:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.name {
+  width: 84px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.fx {
+  color: var(--muted);
+  font-style: italic;
+  font-weight: 600;
+}
+
+.formula {
+  flex: 1;
+  min-width: 0;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace !important;
+}
+
+/* Grid: frozen headers around a scrolling body */
+.grid {
+  display: grid;
+  grid-template-columns: var(--head-width) 1fr;
+  grid-template-rows: var(--row-height) 1fr;
+  min-height: 0;
+}
+
+.corner,
+.col-heads,
+.row-heads {
+  background: var(--head);
+  color: var(--muted);
+}
+
+.corner {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.col-heads,
+.row-heads {
+  position: relative;
+  overflow: hidden;
+}
+
+.col-heads {
+  border-bottom: 1px solid var(--border);
+}
+
+.row-heads {
+  border-right: 1px solid var(--border);
+}
+
+.track {
+  position: absolute;
+  inset: 0 auto auto 0;
+}
+
+.head {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+.col-heads .head {
+  top: 0;
+  height: var(--row-height);
+  border-right: 1px solid var(--border);
+}
+
+.row-heads .head {
+  left: 0;
+  width: var(--head-width);
+  height: var(--row-height);
+  border-bottom: 1px solid var(--border);
+}
+
+.head.active {
+  background: var(--head-active);
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.body {
+  position: relative;
+  overflow: auto;
+  outline: none;
+}
+
+.canvas {
+  position: relative;
+}
+
+.cell {
+  position: absolute;
+  height: var(--row-height);
+  padding: 0 6px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  line-height: calc(var(--row-height) - 1px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cell.number {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.cell.formula-pending {
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Unsaved cells carry a small accent mark in the corner. */
+.cell.edited::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-top: 6px solid var(--accent);
+  border-left: 6px solid transparent;
+}
+
+.selection {
+  position: absolute;
+  z-index: 2;
+  border: 2px solid var(--accent);
+  border-radius: 2px;
+  pointer-events: none;
+  transition:
+    left 60ms ease-out,
+    top 60ms ease-out,
+    width 60ms ease-out;
+}
+
+.editor {
+  position: absolute;
+  z-index: 3;
+  height: var(--row-height);
+  padding: 0 6px;
+  border: 2px solid var(--accent);
+  border-radius: 2px;
+  background: var(--background);
+  color: inherit;
+  font: inherit;
+  outline: none;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--foreground) 14%, transparent);
+}
+
+/* Sheet tabs and status */
+.foot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 32px;
+  padding: 0 8px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.tabs {
+  display: flex;
+  flex: 1;
+  gap: 2px;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.tabs button {
+  padding: 4px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.tabs button:hover {
+  background: var(--head);
+  color: var(--foreground);
+}
+
+.tabs button[aria-selected="true"] {
+  background: var(--background);
+  color: var(--foreground);
+  font-weight: 600;
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+.status {
+  max-width: 50%;
+  overflow: hidden;
+  color: var(--muted);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .selection {
+    transition: none;
+  }
+}

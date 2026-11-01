@@ -1,0 +1,212 @@
+// App icons: Lucide (the shadcn/ui icon set — shadcn.io/icons), one registry so
+// every icon in the app comes from the same family and stroke. Sized in `em`:
+// the text-* classes that sized the old icon font keep sizing these.
+// Sidebar icons that animate live in ./animated-icon.tsx.
+import { cn } from "@/common/utils";
+import {
+  ArrowDown,
+  Blend,
+  BookOpen,
+  Bot,
+  Calendar,
+  CalendarDays,
+  Check,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+  ChevronsLeft,
+  ChevronsRight,
+  Circle,
+  CircleAlert,
+  CircleCheck,
+  CircleHelp,
+  Code,
+  Columns2,
+  Copy,
+  Ellipsis,
+  Eye,
+  EyeOff,
+  File,
+  FileArchive,
+  FileBraces,
+  FileCode,
+  FileImage,
+  FileLock,
+  FilePlus,
+  FileSpreadsheet,
+  FileTerminal,
+  FileText,
+  FileType,
+  Files,
+  FlaskConical,
+  FlaskConicalOff,
+  Folder,
+  FolderOpen,
+  FolderPlus,
+  FolderX,
+  Gauge,
+  GitBranch,
+  GripVertical,
+  History,
+  ImageOff,
+  Keyboard,
+  LayoutDashboard,
+  LayoutGrid,
+  LoaderCircle,
+  LogIn,
+  Maximize,
+  Menu,
+  MessageSquareText,
+  Minus,
+  Palette,
+  PanelLeft,
+  PanelRight,
+  PencilLine,
+  Plug,
+  Plus,
+  RefreshCw,
+  Replace,
+  ReplaceAll,
+  RotateCw,
+  Rows2,
+  Save,
+  Search,
+  Server,
+  Settings,
+  ShieldOff,
+  Sparkles,
+  Square,
+  SquareArrowOutUpRight,
+  SquareSplitHorizontal,
+  SquareSplitVertical,
+  SquareTerminal,
+  Star,
+  Terminal,
+  Trash2,
+  TriangleAlert,
+  UnfoldVertical,
+  WandSparkles,
+  X,
+  type LucideIcon,
+} from "lucide-preact";
+import type { JSX } from "preact";
+
+export const ICONS = {
+  // navigation / chevrons
+  "caret-left": ChevronLeft,
+  "caret-right": ChevronRight,
+  "caret-up": ChevronUp,
+  "caret-down": ChevronDown,
+  "caret-double-left": ChevronsLeft,
+  "caret-double-right": ChevronsRight,
+  // actions
+  x: X,
+  plus: Plus,
+  minus: Minus,
+  check: Check,
+  copy: Copy,
+  trash: Trash2,
+  "pencil-simple-line": PencilLine,
+  "arrow-down": ArrowDown,
+  "arrow-clockwise": RotateCw,
+  "arrows-clockwise": RefreshCw,
+  "magnifying-glass": Search,
+  "dots-three": Ellipsis,
+  "sign-in": LogIn,
+  "floppy-disk": Save,
+  "arrow-u-up-right": Replace,
+  "arrows-out-line-horizontal": ReplaceAll,
+  "arrows-vertical": UnfoldVertical,
+  "arrow-square-out": SquareArrowOutUpRight,
+  plug: Plug,
+  gauge: Gauge,
+  flask: FlaskConical,
+  "flask-off": FlaskConicalOff,
+  eye: Eye,
+  "eye-off": EyeOff,
+  list: Menu,
+  "corners-out": Maximize,
+  grip: GripVertical,
+  // status
+  "warning-circle": CircleAlert,
+  warning: TriangleAlert,
+  "shield-off": ShieldOff,
+  "check-circle": CircleCheck,
+  circle: Circle,
+  spinner: LoaderCircle,
+  "spinner-gap": LoaderCircle,
+  "circle-notch": LoaderCircle,
+  question: CircleHelp,
+  star: Star,
+  sparkle: Sparkles,
+  "clock-counter-clockwise": History,
+  // app areas
+  terminal: Terminal,
+  "terminal-window": SquareTerminal,
+  robot: Bot,
+  "chat-teardrop-text": MessageSquareText,
+  calendar: CalendarDays,
+  "calendar-blank": Calendar,
+  "git-branch": GitBranch,
+  "gear-six": Settings,
+  palette: Palette,
+  blend: Blend,
+  keyboard: Keyboard,
+  server: Server,
+  wand: WandSparkles,
+  book: BookOpen,
+  layout: PanelRight,
+  "sidebar-simple": PanelLeft,
+  columns: Columns2,
+  rows: Rows2,
+  "layout-grid": LayoutGrid,
+  "layout-dashboard": LayoutDashboard,
+  square: Square,
+  "split-horizontal": SquareSplitHorizontal,
+  "split-vertical": SquareSplitVertical,
+  code: Code,
+  "image-broken": ImageOff,
+  // files & folders
+  files: Files,
+  file: File,
+  "file-plus": FilePlus,
+  "file-text": FileText,
+  "file-code": FileCode,
+  "file-braces": FileBraces,
+  "file-image": FileImage,
+  "file-archive": FileArchive,
+  "file-lock": FileLock,
+  "file-sheet": FileSpreadsheet,
+  "file-terminal": FileTerminal,
+  "file-type": FileType,
+  folder: Folder,
+  "folder-open": FolderOpen,
+  "folder-plus": FolderPlus,
+  "folder-dashed": FolderX,
+} satisfies Record<string, LucideIcon>;
+
+export type IconName = keyof typeof ICONS;
+
+type Props = Omit<JSX.SVGAttributes<SVGSVGElement>, "class" | "fill"> & {
+  name: IconName;
+  class?: string;
+  /** solid variant (pinned star, …) */
+  filled?: boolean;
+  strokeWidth?: number;
+};
+
+export function Icon({ name, class: className, filled, strokeWidth = 1.75, ...rest }: Props) {
+  const C = ICONS[name];
+  return (
+    <C
+      width="1em"
+      height="1em"
+      strokeWidth={strokeWidth}
+      fill={filled ? "currentColor" : "none"}
+      aria-hidden={rest["aria-label"] ? undefined : true}
+      class={cn("ui-icon inline-block shrink-0 align-[-0.125em]", className)}
+      {...(rest as Record<string, unknown>)}
+    />
+  );
+}

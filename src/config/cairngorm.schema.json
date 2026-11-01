@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Cairngorm settings",
+  "description": "cairngorm.json: adds to, hides or changes what Cairngorm detects. Permissions are granted only in Cairngorm's dialogs, never here.",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "shells": {
+      "type": "object",
+      "description": "Shells in the + menu.",
+      "properties": {
+        "default": {
+          "description": "The shell new terminals use: a detected shell's name (\"Git Bash\") or a full shell.",
+          "oneOf": [{ "type": "string" }, { "$ref": "#/definitions/shell" }, { "type": "null" }]
+        },
+        "hide": {
+          "type": "array",
+          "description": "Detected shells to leave out of the menu, by name.",
+          "items": { "type": "string" }
+        },
+        "add": {
+          "type": "array",
+          "description": "Extra shells.",
+          "items": { "$ref": "#/definitions/shell" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "agentClis": {
+      "type": "object",
+      "description": "Agent CLIs in the + menu.",
+      "properties": {
+        "hide": {
+          "type": "array",
+          "description": "Detected CLIs to leave out, by name or id (\"Amp\", \"amp\").",
+          "items": { "type": "string" }
+        },
+        "add": {
+          "type": "array",
+          "description": "Extra agent CLIs.",
+          "items": {
+            "type": "object",
+            "required": ["name", "program"],
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "program": { "type": "string", "description": "Executable or command." },
+              "args": { "type": "array", "items": { "type": "string" } }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "applications": {
+      "type": "object",
+      "description": "Installed applications agents can script and show in panes.",
+      "properties": {
+        "hide": {
+          "type": "array",
+          "description": "Detected applications to leave out, by id (\"onenote\").",
+          "items": { "type": "string" }
+        },
+        "add": {
+          "type": "array",
+          "description": "Applications that are not detected automatically.",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "progId", "executable"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,63}$" },
+              "name": { "type": "string" },
+              "progId": {
+                "type": "string",
+                "description": "Windows COM automation ProgID, e.g. \"Photoshop.Application\"."
+              },
+              "executable": { "type": "string", "description": "Full path of the program." }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "launchProfiles": {
+      "type": "array",
+      "description": "Programs started in a terminal from the + menu.",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "program", "args", "shell"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "program": { "type": "string" },
+          "args": { "type": "array", "items": { "type": "string" } },
+          "shell": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "required": ["path", "args"],
+                "properties": {
+                  "path": { "type": "string" },
+                  "args": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "app": {
+      "type": "object",
+      "properties": {
+        "keepRunning": {
+          "type": "boolean",
+          "description": "Closing the window while a terminal runs an agent or program keeps Cairngorm running in the tray. Default true."
+        }
+      },
+      "additionalProperties": false
+    },
+    "terminal": {
+      "type": "object",
+      "properties": {
+        "clipboard": { "enum": ["windows", "ctrl-shift"] },
+        "scrollback": { "type": "integer", "minimum": 100, "maximum": 100000 }
+      },
+      "additionalProperties": false
+    },
+    "documents": {
+      "type": "object",
+      "properties": {
+        "openWith": {
+          "type": "object",
+          "description": "Editor per file extension, e.g. { \"xlsx\": \"app.cairngorm.spreadsheet\" }.",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "definitions": {
+    "shell": {
+      "type": "object",
+      "required": ["name", "path"],
+      "properties": {
+        "name": { "type": "string" },
+        "path": { "type": "string", "description": "Executable." },
+        "args": { "type": "array", "items": { "type": "string" } },
+        "env": { "type": "object", "additionalProperties": { "type": "string" } }
+      },
+      "additionalProperties": false
+    }
+  }
+}

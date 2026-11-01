@@ -1,0 +1,198 @@
+[
+  {
+    "id": "tldraw",
+    "name": "tldraw",
+    "description": "Infinite canvas for diagrams, flows and sketches",
+    "category": "Creativity",
+    "logo": "/plugins/tldraw.svg",
+    "serverUrl": "https://tldraw-mcp-app.tldraw.workers.dev/mcp",
+    "homepage": "https://www.tldraw.com",
+    "terms": "https://www.tldraw.com/terms",
+    "viewCss": ".mcp-app__canvas-layout--fullscreen{height:auto!important}"
+  },
+  {
+    "id": "excalidraw",
+    "name": "Excalidraw",
+    "description": "Hand-drawn diagrams, sketched live",
+    "category": "Creativity",
+    "logo": "/plugins/excalidraw.svg",
+    "serverUrl": "https://mcp.excalidraw.com/mcp",
+    "homepage": "https://excalidraw.com",
+    "terms": "https://plus.excalidraw.com/terms-of-service"
+  },
+  {
+    "id": "drawio",
+    "name": "draw.io",
+    "description": "Flowcharts, architecture and ER diagrams",
+    "category": "Creativity",
+    "logo": "/plugins/drawio.svg",
+    "serverUrl": "https://mcp.draw.io/mcp",
+    "homepage": "https://www.drawio.com",
+    "terms": "https://www.drawio.com/trust/terms-of-use/",
+    "viewCss": "html,body{background:var(--viewer-card-bg,#fff)}body.fullscreen{height:100vh;padding-bottom:0!important;display:flex;flex-direction:column}body.fullscreen #diagram-container{flex:1 1 0;height:auto!important;min-height:0}"
+  },
+  {
+    "id": "mermaid",
+    "name": "Mermaid",
+    "description": "Render and repair Mermaid diagrams",
+    "category": "Creativity",
+    "logo": "/plugins/mermaid.svg",
+    "serverUrl": "https://chatgpt.mermaid.ai/anthropic/v2/mcp",
+    "homepage": "https://mermaid.ai",
+    "terms": "https://www.mermaidchart.com/terms-and-conditions"
+  },
+  {
+    "id": "canva",
+    "name": "Canva",
+    "description": "Create, review and edit designs",
+    "category": "Creativity",
+    "logo": "/plugins/canva.png",
+    "serverUrl": "https://mcp.canva.com/mcp",
+    "homepage": "https://www.canva.com",
+    "terms": "https://www.canva.com/policies/terms-of-use/",
+    "auth": "oauth"
+  },
+  {
+    "id": "notion",
+    "name": "Notion",
+    "description": "Create docs, tasks and databases",
+    "category": "Productivity",
+    "logo": "/plugins/notion.png",
+    "serverUrl": "https://mcp.notion.com/mcp",
+    "homepage": "https://www.notion.com",
+    "terms": "https://www.notion.com/terms",
+    "auth": "oauth"
+  },
+  {
+    "id": "linear",
+    "name": "Linear",
+    "description": "Plan issues, projects and cycles",
+    "category": "Productivity",
+    "logo": "/plugins/linear.svg",
+    "serverUrl": "https://mcp.linear.app/mcp",
+    "homepage": "https://linear.app",
+    "terms": "https://linear.app/terms",
+    "auth": "oauth"
+  },
+  {
+    "id": "todoist",
+    "name": "Todoist",
+    "description": "Tasks, projects and reminders",
+    "category": "Productivity",
+    "logo": "/plugins/todoist.png",
+    "serverUrl": "https://ai.todoist.net/mcp",
+    "homepage": "https://todoist.com",
+    "terms": "https://doist.com/terms-of-service",
+    "auth": "oauth"
+  },
+  {
+    "id": "dropbox",
+    "name": "Dropbox",
+    "description": "Find, share and organize files",
+    "category": "Productivity",
+    "logo": "/plugins/dropbox.svg",
+    "serverUrl": "https://mcp.dropbox.com/mcp",
+    "homepage": "https://www.dropbox.com",
+    "terms": "https://www.dropbox.com/terms",
+    "auth": "oauth"
+  },
+  {
+    "id": "atlassian",
+    "name": "Atlassian",
+    "description": "Jira issues and Confluence pages",
+    "category": "Productivity",
+    "logo": "/plugins/atlassian.svg",
+    "serverUrl": "https://mcp.atlassian.com/v1/mcp",
+    "homepage": "https://www.atlassian.com",
+    "terms": "https://www.atlassian.com/legal/atlassian-customer-agreement",
+    "auth": "oauth"
+  },
+  {
+    "id": "monday",
+    "name": "monday.com",
+    "description": "Boards, items and workflows",
+    "category": "Business",
+    "logo": "/plugins/monday.png",
+    "serverUrl": "https://mcp.monday.com/mcp",
+    "homepage": "https://monday.com",
+    "terms": "https://monday.com/l/legal/tos/",
+    "auth": "oauth"
+  },
+  {
+    "id": "amplitude",
+    "name": "Amplitude",
+    "description": "Product analytics, charts and metrics",
+    "category": "Business",
+    "logo": "/plugins/amplitude.png",
+    "serverUrl": "https://mcp.amplitude.com/mcp",
+    "homepage": "https://amplitude.com",
+    "terms": "https://amplitude.com/terms",
+    "auth": "oauth"
+  },
+  {
+    "id": "stripe",
+    "name": "Stripe",
+    "description": "Payments, customers and invoices",
+    "category": "Business",
+    "logo": "/plugins/stripe.svg",
+    "serverUrl": "https://mcp.stripe.com",
+    "homepage": "https://stripe.com",
+    "terms": "https://stripe.com/legal/ssa",
+    "auth": "oauth"
+  },
+  {
+    "id": "paypal",
+    "name": "PayPal",
+    "description": "Invoices, orders and transactions",
+    "category": "Business",
+    "logo": "/plugins/paypal.png",
+    "serverUrl": "https://mcp.paypal.com/mcp",
+    "homepage": "https://www.paypal.com",
+    "terms": "https://www.paypal.com/us/legalhub/paypal/useragreement-full",
+    "auth": "oauth"
+  },
+  {
+    "id": "supabase",
+    "name": "Supabase",
+    "description": "Manage and query databases",
+    "category": "Developer Tools",
+    "logo": "/plugins/supabase.png",
+    "serverUrl": "https://mcp.supabase.com/mcp",
+    "homepage": "https://supabase.com",
+    "terms": "https://supabase.com/terms",
+    "auth": "oauth"
+  },
+  {
+    "id": "vercel",
+    "name": "Vercel",
+    "description": "Build and deploy apps",
+    "category": "Developer Tools",
+    "logo": "/plugins/vercel.png",
+    "serverUrl": "https://mcp.vercel.com",
+    "homepage": "https://vercel.com",
+    "terms": "https://vercel.com/legal/terms",
+    "auth": "oauth"
+  },
+  {
+    "id": "sentry",
+    "name": "Sentry",
+    "description": "Errors, issues and performance",
+    "category": "Developer Tools",
+    "logo": "/plugins/sentry.svg",
+    "serverUrl": "https://mcp.sentry.dev/mcp",
+    "homepage": "https://sentry.io",
+    "terms": "https://sentry.io/terms/",
+    "auth": "oauth"
+  },
+  {
+    "id": "cloudflare",
+    "name": "Cloudflare",
+    "description": "Workers, DNS and account resources",
+    "category": "Developer Tools",
+    "logo": "/plugins/cloudflare.svg",
+    "serverUrl": "https://mcp.cloudflare.com/mcp",
+    "homepage": "https://www.cloudflare.com",
+    "terms": "https://www.cloudflare.com/website-terms/",
+    "auth": "oauth"
+  }
+]

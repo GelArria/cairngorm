@@ -1,0 +1,32 @@
+[
+  { "name": "empty object", "source": "{}", "expected": {} },
+  {
+    "name": "BOM and CRLF",
+    "source": "\ufeff{\r\n// note\r\n\"terminal\": {\"scrollback\": 4000,},\r\n}",
+    "expected": { "terminal": { "scrollback": 4000 } }
+  },
+  {
+    "name": "comment markers in strings",
+    "source": "{\"url\":\"https://example.test/a//b\",\"block\":\"/*not a comment*/\"}",
+    "expected": { "url": "https://example.test/a//b", "block": "/*not a comment*/" }
+  },
+  {
+    "name": "escaped quotes and backslashes",
+    "source": "{\"text\":\"say \\\"hi\\\"\",\"path\":\"C:\\\\work\"}",
+    "expected": { "text": "say \"hi\"", "path": "C:\\work" }
+  },
+  {
+    "name": "nested arrays and trailing commas",
+    "source": "{\"items\":[1, {\"ok\":true,}, /* note */],}",
+    "expected": { "items": [1, { "ok": true }] }
+  },
+  { "name": "EOF line comment", "source": "{} // note", "expected": {} },
+  { "name": "unterminated block comment", "source": "{} /* open", "expected": null },
+  { "name": "comment splitting a token", "source": "{\"a\":tru/**/e}", "expected": null },
+  { "name": "missing value", "source": "{\"a\":}", "expected": null },
+  { "name": "comma without a property", "source": "{,}", "expected": null },
+  { "name": "comma without an array element", "source": "{\"a\":[,]}", "expected": null },
+  { "name": "array root", "source": "[]", "expected": null },
+  { "name": "null root", "source": "null", "expected": null },
+  { "name": "two root objects", "source": "{} {}", "expected": null }
+]

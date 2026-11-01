@@ -1,0 +1,60 @@
+/* Color and brightness belong to icons, never to the app container: filters on
+   the root would create a containing block and break fixed dialogs/menus. */
+.ui-icon,
+.ai {
+  filter: brightness(var(--ui-icon-brightness, 1));
+}
+html[data-custom-icons] :is(.ui-icon, .ai) {
+  color: var(--ui-icon-color);
+}
+
+.ui-slider {
+  display: block;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  appearance: none;
+  height: 6px;
+  border-radius: var(--radius);
+  background: hsl(var(--muted));
+  accent-color: hsl(var(--primary));
+}
+.ui-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid hsl(var(--primary));
+  background: hsl(var(--background));
+}
+.ui-slider::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid hsl(var(--primary));
+  background: hsl(var(--background));
+}
+.ui-slider:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 4px;
+}
+
+::selection {
+  background: hsl(var(--primary) / 0.25);
+}
+
+.project-themed-card:not([data-image-backdrop]) .project-card-text {
+  color: hsl(var(--foreground));
+  filter: none;
+}
+.project-themed-card:not([data-image-backdrop]) .project-card-muted:not(svg) {
+  color: hsl(var(--muted-foreground));
+  filter: none;
+}
+.project-themed-card:not([data-image-backdrop]) .project-card-shade {
+  background: linear-gradient(
+    to right,
+    hsl(var(--background) / 0.7),
+    hsl(var(--background) / 0.25),
+    transparent
+  );
+}

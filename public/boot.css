@@ -1,0 +1,5 @@
+/* Window background until the app CSS loads (see index.html). */
+html {
+  color-scheme: light dark;
+  background: Canvas;
+}

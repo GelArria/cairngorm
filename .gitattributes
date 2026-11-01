@@ -1,0 +1,13 @@
+# Match Prettier on every platform; keep Windows command scripts native.
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+src/documents/sdk/generated/* text eol=lf
+src/documents/sdk/sample-provider/*.js text eol=lf
+src/documents/sdk/sample-provider/src/_cairngorm/* text eol=lf
+src/documents/providers/*/*.js text eol=lf
+src/documents/providers/*/src/_cairngorm/* text eol=lf
+src/documents/providers/*/*.xlsx binary
+*.sh text eol=lf

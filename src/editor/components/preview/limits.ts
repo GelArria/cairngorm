@@ -1,0 +1,4 @@
+export const PREVIEW_MAX_ROWS = 500;
+export const PREVIEW_MAX_COLUMNS = 100;
+export const PREVIEW_MAX_MARKDOWN_CHARS = 200_000;
+export const PREVIEW_MAX_CELL_CHARS = 20_000;

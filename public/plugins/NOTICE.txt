@@ -1,0 +1,24 @@
+Each logo in this folder is a trademark of its owner, shown only to identify that owner's
+service in the plugin catalog. Cairngorm is not affiliated with or endorsed by them.
+
+tldraw.svg      tldraw Inc.         https://www.tldraw.com/apple-touch-icon-180x180.svg
+excalidraw.svg  Excalidraw          https://excalidraw.com/favicon.svg
+drawio.svg      draw.io Ltd         https://github.com/jgraph/drawio-mcp/blob/main/plugins/cursor/assets/drawio-logo.svg
+mermaid.svg     Mermaid Chart       https://www.mermaidchart.com/img/icon-logo.svg
+canva.png       Canva               https://static.canva.com/static/images/apple-touch-120x120-1.png
+notion.png      Notion Labs         https://www.notion.com/front-static/logo-ios.png
+linear.svg      Linear              https://linear.app/static/favicon.svg
+todoist.png     Doist               https://todoist.com/static/apple-touch-icon.png
+monday.png      monday.com          icon declared by https://monday.com
+amplitude.png   Amplitude           https://amplitude.com/nextjs-public/favicon/apple-touch-icon.png
+stripe.svg      Stripe              icon declared by https://stripe.com
+paypal.png      PayPal              https://www.paypalobjects.com/marketing/web/icons/monogram/pp258.png
+supabase.png    Supabase            https://supabase.com/favicon/apple-icon-180x180.png
+vercel.png      Vercel              https://assets.vercel.com/image/upload/q_auto/front/favicon/vercel/apple-touch-icon-256x256.png
+
+These four publish only .ico favicons; their marks come from Simple Icons
+(https://simpleicons.org, simple-icons@13.21.0, CC0) in each brand's colour on a white tile:
+atlassian.svg   Atlassian
+dropbox.svg     Dropbox
+sentry.svg      Functional Software (Sentry)
+cloudflare.svg  Cloudflare

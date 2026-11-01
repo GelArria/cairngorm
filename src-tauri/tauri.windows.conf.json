@@ -1,0 +1,26 @@
+{
+  "bundle": {
+    "targets": ["nsis"],
+    "icon": ["icons/icon.ico"],
+    "windows": {
+      "nsis": {
+        "installMode": "currentUser",
+        "displayLanguageSelector": true,
+        "languages": ["English", "Spanish"],
+        "sidebarImage": "icons/installer-sidebar.bmp",
+        "headerImage": "icons/installer-header.bmp",
+        "installerIcon": "icons/icon.ico",
+        "uninstallerIcon": "icons/icon.ico",
+        "installerHooks": "windows/installer-hooks.nsh"
+      }
+    },
+    "resources": {
+      "binaries/cairngorm-agent-x86_64-pc-windows-msvc.exe": "binaries/cairngorm-agent-x86_64-pc-windows-msvc.exe",
+      "binaries/cairngorm-cli-x86_64-pc-windows-msvc.exe": "bin/cairngorm.exe",
+      "windows/cli-path.ps1": "cli-path.ps1",
+      "resources/conpty/conpty.dll": "conpty.dll",
+      "resources/conpty/OpenConsole.exe": "OpenConsole.exe",
+      "resources/conpty/LICENSE": "conpty-LICENSE"
+    }
+  }
+}

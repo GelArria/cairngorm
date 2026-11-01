@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Cairngorm native IPC experiment</title>
+    <style>
+      body {
+        margin: 0;
+        background: #151515;
+        color: #ddd;
+        font: 14px monospace;
+      }
+      header {
+        padding: 12px;
+      }
+      #terminals {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding: 8px;
+      }
+      .terminal {
+        height: 240px;
+        overflow: hidden;
+      }
+      pre {
+        padding: 12px;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Isolated native IPC + xterm benchmark — no Cairngorm user data</header>
+    <div id="terminals"></div>
+    <pre id="status">Loading native harness…</pre>
+    <script type="module" src="./suite.js"></script>
+  </body>
+</html>

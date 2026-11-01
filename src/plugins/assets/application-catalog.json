@@ -1,0 +1,206 @@
+[
+  {
+    "id": "microsoft-word",
+    "name": "Microsoft Word",
+    "description": "Documents, tables, images, comments and tracked changes",
+    "category": "Office",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://www.microsoft.com/microsoft-365/word",
+    "terms": "https://www.microsoft.com/servicesagreement"
+  },
+  {
+    "id": "microsoft-excel",
+    "name": "Microsoft Excel",
+    "description": "Workbooks, worksheets, formulas, tables and charts",
+    "category": "Office",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://www.microsoft.com/microsoft-365/excel",
+    "terms": "https://www.microsoft.com/servicesagreement",
+    "documentProvider": "spreadsheet"
+  },
+  {
+    "id": "microsoft-powerpoint",
+    "name": "Microsoft PowerPoint",
+    "description": "Presentations, slides, text, images and speaker notes",
+    "category": "Office",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://www.microsoft.com/microsoft-365/powerpoint",
+    "terms": "https://www.microsoft.com/servicesagreement"
+  },
+  {
+    "id": "libreoffice-writer",
+    "name": "LibreOffice Writer",
+    "description": "Local word processing and OpenDocument text files",
+    "category": "Office",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://www.libreoffice.org/discover/writer/",
+    "terms": "https://www.libreoffice.org/about-us/licenses/"
+  },
+  {
+    "id": "libreoffice-calc",
+    "name": "LibreOffice Calc",
+    "description": "Local spreadsheets, calculations and OpenDocument workbooks",
+    "category": "Office",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://www.libreoffice.org/discover/calc/",
+    "terms": "https://www.libreoffice.org/about-us/licenses/"
+  },
+  {
+    "id": "libreoffice-impress",
+    "name": "LibreOffice Impress",
+    "description": "Local slide presentations and OpenDocument presentations",
+    "category": "Office",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://www.libreoffice.org/discover/impress/",
+    "terms": "https://www.libreoffice.org/about-us/licenses/"
+  },
+  {
+    "id": "photocraft",
+    "name": "PhotoCraft",
+    "description": "Layered image editing and photo compositing",
+    "category": "Craft apps",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://getartcraft.com/apps/photocraft",
+    "terms": "https://github.com/storytold/photocraft",
+    "mcp": "photocraft-cli mcp"
+  },
+  {
+    "id": "vectorcraft",
+    "name": "VectorCraft",
+    "description": "Vector illustration and editable artwork",
+    "category": "Craft apps",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://getartcraft.com/apps/vectorcraft",
+    "terms": "https://github.com/storytold/vectorcraft",
+    "mcp": "vectorcraft-cli mcp"
+  },
+  {
+    "id": "filmcraft",
+    "name": "FilmCraft",
+    "description": "Video editing and multi-track timelines",
+    "category": "Craft apps",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://getartcraft.com/apps/filmcraft",
+    "terms": "https://github.com/storytold/filmcraft",
+    "mcp": "filmcraft-cli mcp"
+  },
+  {
+    "id": "lightcraft",
+    "name": "LightCraft",
+    "description": "Photo libraries and non-destructive raw development",
+    "category": "Craft apps",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://getartcraft.com/apps/lightcraft",
+    "terms": "https://github.com/storytold/lightcraft",
+    "mcp": "lightcraft-cli mcp"
+  },
+  {
+    "id": "pdfcraft",
+    "name": "PdfCraft",
+    "description": "Read, organize, combine and edit PDF documents",
+    "category": "Craft apps",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://getartcraft.com/apps/pdfcraft",
+    "terms": "https://github.com/storytold/pdfcraft",
+    "mcp": "pdfcraft-cli mcp"
+  },
+  {
+    "id": "effectcraft",
+    "name": "EffectCraft",
+    "description": "Motion graphics, compositions and visual effects",
+    "category": "Craft apps",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://getartcraft.com/apps/effectcraft",
+    "terms": "https://github.com/storytold/effectcraft",
+    "mcp": "effectcraft-cli mcp"
+  },
+  {
+    "id": "designcraft",
+    "name": "DesignCraft",
+    "description": "Page layout, publishing and multi-page designs",
+    "category": "Craft apps",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://getartcraft.com/apps/designcraft",
+    "terms": "https://github.com/storytold/designcraft",
+    "mcp": "designcraft-cli mcp"
+  },
+  {
+    "id": "figcraft",
+    "name": "FigCraft",
+    "description": "Interface design, components and prototypes",
+    "category": "Craft apps",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://getartcraft.com/apps/figcraft",
+    "terms": "https://github.com/storytold/figcraft",
+    "mcp": "figcraft-cli mcp"
+  },
+  {
+    "id": "wordcraft",
+    "name": "WordCraft",
+    "description": "Documents, formatting, comments and revisions",
+    "category": "Craft apps",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://getartcraft.com/apps/wordcraft",
+    "terms": "https://github.com/storytold/wordcraft",
+    "mcp": "wordcraft-cli mcp"
+  },
+  {
+    "id": "soundcraft",
+    "name": "SoundCraft",
+    "description": "Audio recording, editing, MIDI and mixing",
+    "category": "Craft apps",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://getartcraft.com/apps/soundcraft",
+    "terms": "https://github.com/storytold/soundcraft",
+    "mcp": "soundcraft-cli mcp"
+  },
+  {
+    "id": "deckcraft",
+    "name": "DeckCraft",
+    "description": "Editable slides, presentations and speaker notes",
+    "category": "Craft apps",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://getartcraft.com/apps/deckcraft",
+    "terms": "https://github.com/storytold/deckcraft",
+    "mcp": "deckcraft-cli mcp"
+  },
+  {
+    "id": "cadcraft",
+    "name": "CADCraft",
+    "description": "Computer-aided design, drafting and dimensions",
+    "category": "Craft apps",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://getartcraft.com/apps/cadcraft",
+    "terms": "https://github.com/storytold/cadcraft",
+    "mcp": "cadcraft-cli mcp"
+  },
+  {
+    "id": "gridcraft",
+    "name": "GridCraft",
+    "description": "Spreadsheets, formulas, data analysis and charts",
+    "category": "Craft apps",
+    "localApp": true,
+    "logo": "",
+    "homepage": "https://getartcraft.com/apps/gridcraft",
+    "terms": "https://github.com/storytold/gridcraft",
+    "mcp": "gridcraft-cli mcp"
+  }
+]

@@ -1,0 +1,3 @@
+{
+  "GHSA-wrw7-89jp-8q8g": "GitHub's copy of RUSTSEC-2024-0429, an unsoundness notice in glib::VariantStrIter. glib 0.18 comes with Tauri's GTK 3 stack on Linux (tray-icon, wry) and moves only when Tauri moves to gtk-rs 0.20; Cairngorm never iterates GVariant string arrays."
+}

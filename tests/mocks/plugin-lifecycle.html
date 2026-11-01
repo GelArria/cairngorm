@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Checkpoint canvas fixture</title>
+    <style>
+      body {
+        font: 16px system-ui;
+        margin: 32px;
+        color: #e8e4dc;
+        background: #141414;
+      }
+      input,
+      button {
+        font: inherit;
+        padding: 8px;
+        margin: 8px;
+        background: #242424;
+        color: inherit;
+        border: 1px solid #777;
+        border-radius: 4px;
+      }
+      .shape {
+        padding: 24px;
+        border: 2px solid #cdbb98;
+        width: 300px;
+        margin: 24px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Checkpoint canvas</h1>
+    <div id="editor">
+      <label>Shape label<input aria-label="Shape label" /></label>
+      <div id="shape" class="shape" data-shape-id="shape:one"></div>
+    </div>
+    <p id="status" role="status"></p>
+    <script>
+      window.__TLDRAW_BOOTSTRAP__ = __BOOTSTRAP__;
+      (() => {
+        const bootstrap = window.__TLDRAW_BOOTSTRAP__;
+        let shapes = structuredClone(bootstrap.shapes);
+        let disposed = false;
+        let timer;
+        let next = 1;
+        const pending = new Map();
+        const input = document.querySelector("input");
+        const shape = document.querySelector("#shape");
+        const status = document.querySelector("#status");
+        const paint = () => {
+          input.value = shapes[0]?.text ?? "";
+          shape.textContent = shapes[0]?.text ?? "Empty";
+        };
+        const send = (message) => parent.postMessage({ jsonrpc: "2.0", ...message }, "*");
+        const rpc = (method, params) =>
+          new Promise((resolve, reject) => {
+            const id = next++;
+            pending.set(id, { resolve, reject });
+            send({ id, method, params });
+          });
+        const save = async () => {
+          if (disposed) return;
+          clearTimeout(timer);
+          const result = await rpc("tools/call", {
+            name: "save_checkpoint",
+            arguments: {
+              canvasId: bootstrap.canvasId,
+              checkpointId: "checkpoint-" + Date.now(),
+              shapesJson: JSON.stringify(shapes),
+              assetsJson: "[]",
+              bindingsJson: "[]",
+            },
+          });
+          status.textContent = result.isError ? "Save failed" : "Saved";
+        };
+        input.addEventListener("input", () => {
+          shapes[0].text = input.value;
+          shape.textContent = input.value;
+          status.textContent = "Unsaved";
+          clearTimeout(timer);
+          timer = setTimeout(() => void save(), 500);
+        });
+        window.addEventListener("message", async ({ source, data: m }) => {
+          if (source !== parent || m?.jsonrpc !== "2.0") return;
+          if (m.id != null && !m.method) {
+            const p = pending.get(m.id);
+            if (p) {
+              pending.delete(m.id);
+              m.error ? p.reject(Error(m.error.message)) : p.resolve(m.result);
+            }
+            return;
+          }
+          if (m.method === "ui/notifications/tool-input") {
+            await rpc("tools/call", {
+              name: "_exec_callback",
+              arguments: { result: { success: true, canvasId: bootstrap.canvasId } },
+            });
+            await save();
+          }
+          if (m.method === "ui/notifications/tool-result") {
+            if (m.params?.isError) {
+              disposed = true;
+              document.querySelector("#editor").hidden = true;
+              status.textContent = "Error editing canvas";
+            } else if (m.params?.structuredContent?.tldrawRecords) {
+              shapes = structuredClone(m.params.structuredContent.tldrawRecords);
+              paint();
+            }
+          }
+          if (
+            m.method === "ui/notifications/host-context-changed" &&
+            m.params?.displayMode === "inline" &&
+            !disposed
+          ) {
+            await rpc("ui/update-model-context", { structuredContent: { shapes } });
+            await save();
+          }
+          if (m.method === "ui/resource-teardown") {
+            const behavior = await fetch("/behavior").then((r) => r.json());
+            if (behavior.teardownError)
+              send({ id: m.id, error: { code: -32000, message: "Fixture teardown failed" } });
+            else send({ id: m.id, result: {} });
+          }
+        });
+        paint();
+        rpc("ui/initialize", {
+          protocolVersion: "2026-01-26",
+          appCapabilities: { availableDisplayModes: ["fullscreen", "inline"] },
+        }).then(() => send({ method: "ui/notifications/initialized" }));
+      })();
+    </script>
+  </body>
+</html>

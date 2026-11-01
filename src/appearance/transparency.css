@@ -1,0 +1,84 @@
+/* Window transparency. Only active with html[data-translucent]: opaque mode keeps
+   the regular Tailwind backgrounds untouched.
+   Each part paints ONE translucent layer (--alpha-<part>, set by transparency.ts);
+   layers underneath it turn clear so alphas never stack. Exception: dock islands
+   tint on top of the dock row so they stay distinct from it. */
+
+html[data-translucent],
+html[data-translucent] body,
+html[data-translucent] .surface-base {
+  background: transparent !important;
+}
+
+html[data-translucent] .surface-header {
+  background-color: hsl(var(--card) / var(--alpha-header));
+}
+html[data-translucent] .surface-sidebar,
+html[data-translucent] .sidebar-dock [role="group"],
+html[data-translucent] .sidebar-dock .dock-project-island {
+  background-color: hsl(var(--card) / var(--alpha-sidebar));
+}
+/* The tint above outranks the Button's hover utility; restore hover/open feedback. */
+html[data-translucent] .sidebar-dock .dock-project-island:hover,
+html[data-translucent] .sidebar-dock .dock-project-island[aria-expanded="true"] {
+  background-color: hsl(var(--accent) / 0.6);
+}
+/* A docked sidebar (top/bottom): its row is the sidebar's surface, so it takes the
+   sidebar opacity (100% = solid) instead of showing the clear window behind it.
+   A title bar that follows the sidebar has the same opacity; over a top dock it
+   drops its divider so both read as one bar. */
+html[data-translucent] .sidebar-dock {
+  background-color: hsl(var(--card) / var(--alpha-sidebar));
+}
+html[data-translucent][data-header-follows] .surface-header[data-dock="top"] {
+  border-bottom-color: transparent;
+}
+html[data-translucent] .surface-tabs {
+  background-color: hsl(var(--card) / var(--alpha-tabs));
+}
+html[data-translucent] .surface-terminal {
+  background-color: hsl(var(--background) / var(--alpha-terminal));
+}
+html[data-translucent] .surface-panel {
+  background-color: hsl(var(--background) / var(--alpha-panels));
+}
+
+/* Split view: the grid's border-colored backing goes clear (inline style, hence
+   !important); each pane outlines itself so the dividers stay visible. */
+html[data-translucent] .surface-grid {
+  background: transparent !important;
+}
+html[data-translucent] .surface-grid > [data-pane-id] {
+  box-shadow: 0 0 0 1px hsl(var(--border));
+}
+
+/* Toolbars and composers inside a pane: a light tint over the pane's glass. */
+html[data-translucent] .surface-strip-terminal {
+  background-color: hsl(var(--card) / calc(var(--alpha-terminal) * 0.5));
+}
+html[data-translucent] .surface-strip-panel {
+  background-color: hsl(var(--card) / calc(var(--alpha-panels) * 0.5));
+}
+
+html[data-translucent] .surface-overlay,
+html[data-translucent] .dock-panel,
+html[data-translucent] .bg-popover {
+  background-color: hsl(var(--popover) / var(--alpha-overlays));
+}
+/* Only leaf menus blur: a filter on a container would become the containing
+   block of fixed descendants (menus, tooltips) and misplace them. */
+html[data-translucent] .bg-popover {
+  backdrop-filter: blur(18px) saturate(1.2);
+}
+
+/* Terminal and editor paint nothing themselves; their pane does. */
+html[data-translucent] .xterm,
+html[data-translucent] .cm-editor,
+html[data-translucent] .cm-gutters {
+  background: transparent !important;
+}
+
+/* The active tab joins the pane under it instead of reading as a solid block. */
+html[data-translucent] .surface-tab-active {
+  background-color: hsl(var(--background) / var(--alpha-terminal));
+}

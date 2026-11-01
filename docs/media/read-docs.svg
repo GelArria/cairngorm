@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="164" height="46" viewBox="0 0 164 46" role="img" aria-labelledby="title">
+  <title id="title">Read the docs</title>
+  <rect x="0.5" y="0.5" width="163" height="41" rx="8" fill="#1c1d20" stroke="#595b60"/>
+  <path d="M19 14h12v14H19zM22 18h6m-6 4h6" fill="none" stroke="#d9c4a8" stroke-width="1.5" stroke-linejoin="round"/>
+  <text x="43" y="26" fill="#f1efec" font-family="Segoe UI,Arial,sans-serif" font-size="14" font-weight="600">Read the docs</text>
+</svg>

@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cairngorm</title>
+    <!-- The window is transparent-capable; paint it until the app CSS loads.
+         External on purpose: an inline <style> gets a CSP nonce in release builds,
+         which disables 'unsafe-inline' and blocks the styles xterm injects. -->
+    <link rel="stylesheet" href="/boot.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/app/main.tsx"></script>
+  </body>
+</html>

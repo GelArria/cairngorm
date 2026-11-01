@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Field Notes — Checkout</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f6f3ed;
+        color: #252a24;
+        font:
+          16px system-ui,
+          sans-serif;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #c8cdc3;
+        padding: 24px 42px;
+      }
+      main {
+        max-width: 860px;
+        margin: 50px auto;
+        padding: 0 36px;
+      }
+      h1 {
+        font-size: 38px;
+        letter-spacing: -1.5px;
+        margin: 0 0 24px;
+      }
+      .product {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 44px;
+      }
+      .cover {
+        background: #687b58;
+        padding: 44px 28px;
+        color: #fff;
+        min-height: 250px;
+        border-radius: 4px;
+        box-shadow: 8px 8px 0 #d9ddcf;
+      }
+      .cover strong {
+        display: block;
+        font-size: 34px;
+        letter-spacing: 2px;
+        margin-top: 70px;
+      }
+      .tag {
+        font-size: 12px;
+        letter-spacing: 2px;
+      }
+      p {
+        line-height: 1.7;
+        color: #5b6358;
+      }
+      button {
+        border: 0;
+        border-radius: 4px;
+        background: #293b28;
+        color: #fff;
+        padding: 14px 22px;
+        font: inherit;
+        cursor: pointer;
+      }
+      label {
+        display: block;
+        margin-bottom: 22px;
+      }
+      input {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        margin-top: 8px;
+        border: 1px solid #b3baaa;
+        border-radius: 4px;
+        background: white;
+        font: inherit;
+      }
+      .summary {
+        padding: 20px 0;
+        border-block: 1px solid #c8cdc3;
+        margin: 28px 0;
+        display: flex;
+        justify-content: space-between;
+      }
+      .receipt {
+        padding: 32px;
+        border: 1px solid #c8cdc3;
+        background: #edf1e8;
+      }
+    </style>
+  </head>
+  <body>
+    <header><strong>FIELD NOTES / SHOP</strong><span>Everyday essentials</span></header>
+    <main>
+      <h1>Field Notes</h1>
+      <div class="product">
+        <div class="cover">
+          <span class="tag">MADE FOR YOUR IDEAS</span><strong>FIELD<br />NOTES</strong>
+        </div>
+        <div>
+          <span class="tag">THE EVERYDAY NOTEBOOK</span>
+          <h2>A place to start.</h2>
+          <p>192 pages of room for thoughts, sketches, and plans. Forest green cloth cover.</p>
+          <h2>$18.00</h2>
+          <button id="add">Add to bag</button>
+          <p id="bag">Your bag is empty</p>
+          <button id="checkout" hidden>Checkout · 1 item</button>
+        </div>
+      </div>
+    </main>
+    <script>
+      const main = document.querySelector("main");
+      document.querySelector("#add").onclick = () => {
+        document.querySelector("#bag").textContent = "1 notebook added to your bag";
+        document.querySelector("#checkout").hidden = false;
+      };
+      document.querySelector("#checkout").onclick = () => {
+        history.pushState({}, "", "/checkout");
+        main.innerHTML =
+          '<h1>Checkout</h1><div class="summary"><span>Field Notes / Forest green × 1</span><strong>$18.00</strong></div><label>Email<input type="email" aria-label="Email"></label><button id="order">Place order</button>';
+        document.querySelector("#order").onclick = () => {
+          history.pushState({}, "", "/receipt");
+          main.innerHTML =
+            '<div class="receipt"><span class="tag">THANK YOU</span><h1>Order confirmed</h1><p>Your notebook is on its way.</p><div class="summary"><span>Order #FN-1042</span><strong>$18.00</strong></div></div>';
+        };
+      };
+    </script>
+  </body>
+</html>

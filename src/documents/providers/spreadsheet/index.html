@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Spreadsheet</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="main.js"></script>
+  </head>
+  <body>
+    <div class="sheet-app" id="app" hidden>
+      <header class="bar">
+        <input id="name" class="name" aria-label="Cell address" spellcheck="false" />
+        <span class="fx" aria-hidden="true">fx</span>
+        <input id="formula" class="formula" aria-label="Cell contents" spellcheck="false" />
+      </header>
+      <div class="grid">
+        <div class="corner" aria-hidden="true"></div>
+        <div class="col-heads" id="col-heads" aria-hidden="true"><div class="track"></div></div>
+        <div class="row-heads" id="row-heads" aria-hidden="true"><div class="track"></div></div>
+        <div class="body" id="body" tabindex="0" role="grid" aria-label="Worksheet">
+          <div class="canvas" id="canvas">
+            <div id="cells"></div>
+            <div class="selection" id="selection"></div>
+            <input id="editor" class="editor" aria-label="Edit cell" spellcheck="false" hidden />
+          </div>
+        </div>
+      </div>
+      <footer class="foot">
+        <nav class="tabs" id="tabs" aria-label="Worksheets"></nav>
+        <span class="status" id="status" role="status"></span>
+      </footer>
+    </div>
+    <p class="loading" id="loading">Opening workbook…</p>
+  </body>
+</html>

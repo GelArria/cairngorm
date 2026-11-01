@@ -1,0 +1,26 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Default capabilities for the app",
+  "windows": ["main", "detached-*"],
+  "permissions": [
+    "core:default",
+    "core:window:default",
+    "core:window:allow-minimize",
+    "core:window:allow-toggle-maximize",
+    "core:window:allow-close",
+            "core:window:allow-destroy",
+    "core:window:allow-start-dragging",
+    "core:window:allow-set-focus",
+    "core:window:allow-create",
+    "core:window:allow-set-title",
+    "core:window:allow-set-effects",
+    "core:webview:allow-create-webview-window",
+    "shell:allow-open",
+    "dialog:default",
+    "dialog:allow-open",
+    "dialog:allow-save",
+    "sql:default",
+    "sql:allow-execute"
+  ]
+}

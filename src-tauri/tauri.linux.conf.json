@@ -1,0 +1,6 @@
+{
+  "bundle": {
+    "targets": ["deb", "rpm"],
+    "externalBin": ["binaries/cairngorm-agent"]
+  }
+}

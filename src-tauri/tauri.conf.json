@@ -1,0 +1,70 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+  "build": {
+    "beforeBuildCommand": "npm run build && node scripts/build-agent.mjs && node scripts/build-cli.mjs",
+    "beforeDevCommand": "node scripts/ensure-agent-config.mjs && node scripts/build-cli.mjs && npm run dev",
+    "devUrl": "http://localhost:1420",
+    "frontendDist": "../dist",
+    "additionalWatchFolders": [
+      "../src/agent/native",
+      "../src/app/native",
+      "../src/calendar/native",
+      "../src/common/events/native",
+      "../src/common/filesystem/native",
+      "../src/common/storage/native",
+      "../src/debug/native",
+      "../src/git/native",
+      "../src/integrations/native",
+      "../src/integrations/assets",
+      "../src/plugins/native",
+      "../src/plugins/assets",
+      "../src/updates/native",
+      "../src/search/native",
+      "../src/terminal/native",
+      "../src/testing/native",
+      "../src/testing/assets"
+    ]
+  },
+  "bundle": {
+    "active": true,
+    "publisher": "Cairngorm",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "license": "MIT",
+    "resources": {
+      "../LICENSE": "LICENSE",
+      "../licenses/THIRD-PARTY-NOTICES.txt": "licenses/THIRD-PARTY-NOTICES.txt",
+      "../licenses/CaskaydiaCove-Nerd-Font-OFL.txt": "licenses/CaskaydiaCove-Nerd-Font-OFL.txt",
+      "../licenses/WRY-MIT.txt": "licenses/WRY-MIT.txt"
+    }
+  },
+  "productName": "Cairngorm",
+  "version": "0.4.2",
+  "identifier": "com.panelnative.app",
+  "app": {
+    "macOSPrivateApi": true,
+    "security": {
+      "csp": "default-src 'self'; connect-src ipc: http://ipc.localhost; img-src 'self' asset: data: blob: https: test-frame: http://test-frame.localhost; style-src 'self' 'unsafe-inline'; script-src 'self' 'wasm-unsafe-eval'; font-src 'self' asset: data:; frame-src 'self' data: blob: http://127.0.0.1:* http://localhost:* http://*.localhost:*; media-src 'self' data: blob:; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'",
+      "devCsp": "default-src 'self'; connect-src 'self' ipc: http://ipc.localhost ws://127.0.0.1:* ws://localhost:*; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' asset: data: blob: https: test-frame: http://test-frame.localhost; font-src 'self' data:; frame-src 'self' data: blob: http://127.0.0.1:* http://localhost:* http://*.localhost:*; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'",
+      "capabilities": ["default"]
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "resizable": true,
+        "title": "Cairngorm",
+        "width": 1280,
+        "height": 800,
+        "decorations": false,
+        "transparent": true,
+        "dragDropEnabled": false,
+        "additionalBrowserArgs": "--disable-features=msWebOOUI,msPdfOOUI --autoplay-policy=no-user-gesture-required"
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+# The `cairngorm` terminal command. Standalone and dependency-free so it stays small and
+# builds in seconds; scripts/build-cli.mjs builds it before the app is bundled.
+[package]
+name = "cairngorm-cli"
+version = "0.0.0"
+license = "MIT"
+edition = "2021"
+publish = false
+build = "build.rs"
+
+[[bin]]
+name = "cairngorm-cli"
+path = "main.rs"
+
+[profile.release]
+opt-level = "z"
+lto = true
+strip = true
+codegen-units = 1
+panic = "abort"
+
+# Tests run the built command against a stand-in app (built as an example).
+[[example]]
+name = "cli-echo-app"
+path = "../../../tests/native/cli-echo-app.rs"
+
+[[test]]
+name = "cli-command"
+path = "../../../tests/native/cli-command.rs"

@@ -1,0 +1,55 @@
+# Dependencies and generated build output
+node_modules/
+dist/
+/src-tauri/target/
+/src/app/cli/target/
+/src-tauri/binaries/
+/src-tauri/gen/
+*.tsbuildinfo
+
+# Local reference checkouts and agent workspace state
+/references/
+/.claude/
+/.codex/
+/.pi/
+/.plan.md
+/docs/handoffs/
+.panel/
+contracts
+.factory
+
+# Personal provider settings and signing credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Test reports, browser state, caches and diagnostic artifacts
+logs/
+.e2e/
+/playwright/.auth/
+test-results/
+playwright-report/
+e2e-screenshots/
+coverage/
+__pycache__/
+*.pyc
+*.log
+*.dmp
+
+# Editor/OS leftovers and temporary files
+.DS_Store
+Thumbs.db
+Desktop.ini
+nul
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# Internal audit reports (kept privately)
+/NOT_*.md

@@ -1,0 +1,28 @@
+Each logo in this folder is a trademark of its owner, shown only to identify that owner's
+agent CLI or AI service in Settings. Cairngorm is not affiliated with or endorsed by them.
+
+The SVG artwork comes from Simple Icons (https://simpleicons.org), released under CC0 1.0
+(see LICENSE.txt). CC0 covers the artwork only; it grants no trademark rights.
+
+File          Owner                   Simple Icons slug   Version
+claude.svg    Anthropic PBC           claude              13.21.0
+openai.svg    OpenAI                  openai              13.21.0
+gemini.svg    Google LLC              googlegemini        16.30.0
+copilot.svg   GitHub, Inc.            githubcopilot       16.30.0
+cursor.svg    Anysphere, Inc.         cursor              16.30.0
+opencode.svg  SST / opencode          opencode            16.30.0
+qwen.svg      Alibaba Cloud           qwen                16.30.0
+kimi.svg      Moonshot AI             kimi                16.30.0
+pi.svg        Pi (pi.dev)             pi                  16.35.0
+cline.svg     Cline Bot Inc.          cline               16.35.0
+mistral.svg   Mistral AI              mistralai           16.35.0
+junie.svg     JetBrains s.r.o.        jetbrains           16.35.0
+trae.svg      ByteDance               trae                16.35.0
+qodo.svg      Qodo Ltd.               qodo                16.35.0
+
+PNG files named after an agent id (droid, amp, kiro, auggie, kilo, continue, crush,
+aider, openhands, grok, codebuff, letta, commandcode, openclaw, gptme, hermes, omp,
+codewhale, strix, interpreter) are each project's own site icon, fetched in
+October 2026 because Simple Icons has no mark for them. They are unmodified and remain
+the property of their owners. Agents with neither (Plandex, Neovate, Goose, ForgeCode) show their initial
+instead of a redrawn logo.

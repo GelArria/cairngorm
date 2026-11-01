@@ -1,0 +1,86 @@
+[package]
+name = "cairngorm"
+version = "0.4.2"
+description = "Cairngorm — terminal and coding agent workspace"
+license = "MIT"
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["image-png", "unstable", "macos-private-api"] }
+# Use Tauri's existing runtime for a bounded observer timer, not a thread per update.
+tokio = { version = "1", features = ["time"] }
+tauri-plugin-shell = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-sql = { version = "2", features = ["sqlite"] }
+# A second launch shows the running app (it may be hidden in the background) instead of
+# starting another instance on the same data and gateway.
+tauri-plugin-single-instance = "2"
+# Same SQLx as tauri-plugin-sql: repairs migration checksums before the plugin opens panel.db
+sqlx = { version = "0.8", default-features = false, features = ["sqlite", "runtime-tokio"] }
+portable-pty = "0.9.0"
+base64 = "0.22"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+regex = "1"
+rayon = "1"
+crossbeam-channel = "0.5"
+ignore = "0.4"
+globset = "0.4"
+lazy_static = "1"
+uuid = { version = "1", features = ["v4"] }
+# CrabNebula DevTools: an opt-in debugging aid (feature `devtools`), never in releases. It
+# brings hyper 0.14 and h2 0.3 (RUSTSEC-2026-0258, fixed only in h2 0.4).
+tauri-plugin-devtools = { version = "2", optional = true }
+sysinfo = "0.30"
+which = "8.0.2"
+# BYOK "Test connection" (GET {baseUrl}/models) — small blocking client, rustls
+ureq = { version = "2", features = ["json"] }
+# Native transport policy (common/network/native/http_transport.rs): per-URL proxy choice
+# and extra roots from NODE_EXTRA_CA_CERTS on ureq's rustls/ring stack. All of these are
+# already in the tree through ureq and tauri; keep their versions aligned.
+rustls = { version = "0.23", default-features = false, features = ["ring", "std", "tls12", "logging"] }
+webpki-roots = "0.26"
+url = "2"
+percent-encoding = "2"
+# Validates Codex config.toml before the plugin bridge is registered in it
+toml = "0.9"
+# PKCE code challenge for plugin sign-in (already in the tree through Tauri)
+sha2 = "0.10"
+# Self-update: release version comparison and installer signature verification
+semver = "1"
+minisign-verify = "0.2"
+backtrace = "0.3"
+# macOS application discovery reads bundles' Info.plist (already in the tree through Tauri)
+plist = "1"
+
+# Background mode's tray icon. Linux tray support needs appindicator system libraries, so
+# there the window is minimized instead.
+[target.'cfg(not(target_os = "linux"))'.dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+
+[target.'cfg(windows)'.dependencies]
+keyring = { version = "3.6.3", features = ["windows-native"] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+keyring = { version = "3.6.3", features = ["apple-native"] }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+keyring = { version = "3.6.3", features = ["sync-secret-service", "crypto-rust", "vendored"] }
+
+[dev-dependencies]
+# Signs test installers for the updater's signature checks
+minisign = "0.7"
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]
+devtools = ["dep:tauri-plugin-devtools"]
+
+
+[patch.crates-io]
+# Windows heap corruption under terminal load: tao 0.35.0 with its event-loop runner
+# counted by Arc instead of Rc. See patches/tao/CAIRNGORM.md before upgrading Tauri.
+tao = { path = "patches/tao" }

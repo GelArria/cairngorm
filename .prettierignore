@@ -1,0 +1,16 @@
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+src-tauri/target/
+references/
+logs/
+**/*.lock
+package-lock.json
+**/package-lock.json
+src/agent/core/src/ai/generated/
+src/documents/sdk/generated/
+src/documents/sdk/sample-provider/*.js
+src/documents/sdk/sample-provider/src/_cairngorm/
+src/documents/providers/*/*.js
+src/documents/providers/*/src/_cairngorm/

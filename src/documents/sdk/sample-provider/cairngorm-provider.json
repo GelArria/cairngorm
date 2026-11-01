@@ -1,0 +1,41 @@
+{
+  "protocol": "cairngorm.document-provider/1",
+  "id": "dev.cairngorm.sample-viewer",
+  "name": "Sample viewer",
+  "version": "1.0.0",
+  "description": "Example provider: shows and edits .sample files as a titled list of fields.",
+  "entry": "index.html",
+  "fileTypes": [
+    {
+      "label": "Sample document",
+      "extensions": ["sample"],
+      "mimeTypes": ["text/x-cairngorm-sample"]
+    }
+  ],
+  "capabilities": ["view", "edit"],
+  "maxBytes": 1048576,
+  "operations": [
+    {
+      "name": "list-fields",
+      "description": "Return every field of the document as a key/value object."
+    },
+    {
+      "name": "set-field",
+      "description": "Change the value of one existing field.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Existing field name"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["key", "value"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

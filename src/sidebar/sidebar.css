@@ -1,0 +1,228 @@
+/* Sidebar container query context */
+.sidebar-container {
+  container-type: inline-size;
+  container-name: sidebar;
+}
+
+/* Only the dock islands accept input; clicks in the gap pass through to the workspace. */
+.sidebar-dock [role="group"] {
+  background: hsl(var(--card));
+  box-shadow: 0 1px 3px hsl(0 0% 0% / 0.12);
+}
+.sidebar-dock [data-tab-id] {
+  border-right: 1px solid hsl(var(--border));
+  border-radius: 0;
+}
+.sidebar-dock [data-tab-id]:has([aria-selected="true"]) {
+  background: hsl(var(--accent));
+  box-shadow: inset 0 -2px hsl(var(--primary));
+}
+
+/* Horizontal dock panels open toward the work area without resizing terminals.
+   One width for every module; the height follows what the module holds. */
+.dock-panel {
+  --dock-room: calc(100dvh - 120px);
+  position: absolute;
+  right: 12px;
+  width: min(420px, calc(100% - 24px));
+  height: min(var(--dock-panel-height, 480px), var(--dock-room));
+  z-index: 20;
+  pointer-events: auto;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+  box-shadow: 0 12px 36px hsl(0 0% 0% / 0.22);
+}
+.dock-panel[data-side="bottom"] {
+  bottom: calc(100% + 8px);
+}
+.dock-panel[data-side="top"] {
+  top: calc(100% + 8px);
+}
+/* Git stacks a commit box above its change list: give the list real room. */
+.dock-panel[data-panel="git"] {
+  --dock-panel-height: 600px;
+}
+.dock-panel[data-panel="files"] {
+  --dock-panel-height: 560px;
+}
+/* The month grid needs a bounded height, just like the other dock panels. */
+.dock-panel[data-panel="calendar"] {
+  --dock-panel-height: 560px;
+}
+@media (max-width: 1000px) {
+  .sidebar-dock {
+    gap: 4px;
+    padding-inline: 8px;
+  }
+  .sidebar-dock [data-testid="dock-project-picker"] {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar-dock .dock-project-label,
+  .sidebar-dock .dock-project-island > svg:last-child {
+    display: none;
+  }
+  .sidebar-dock [role="group"] {
+    width: 128px;
+  }
+  .sidebar-dock [data-testid="tab-title"] {
+    max-width: 64px;
+  }
+  .dock-panel {
+    --dock-room: calc(100dvh - 108px);
+  }
+}
+
+/* ── Header: ONE row — view modes. Creating things lives in the
+   title-bar "+" (AppHeader), whose options depend on the open module. ── */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+}
+
+.sidebar-header-icons {
+  flex: 1; /* occupy the banner width so the group truly centers */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.sidebar-toolbar-item {
+  /* Fixed square button: same 32px footprint the padded+icon combo produced,
+     but icon guaranteed centered (no padding asymmetry) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0; /* centering comes from flex, not padding */
+  flex-shrink: 0;
+  cursor: pointer;
+  border-radius: 6px;
+  color: hsl(var(--muted-foreground));
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+}
+
+.sidebar-toolbar-item:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--foreground));
+}
+
+.sidebar-toolbar-item.active {
+  background: hsl(var(--accent));
+  color: hsl(var(--foreground));
+  box-shadow: inset 0 0 0 1px hsl(var(--border));
+}
+
+/* ── Section headers (Pinned/Recent) — same 12px inset as everything else ── */
+.sidebar-section-header {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: hsl(var(--muted-foreground));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Search: same 12px inset, same 8px vertical rhythm ── */
+.sidebar-search {
+  padding: 8px 12px;
+}
+
+/* ── Fold: past its minimum width the lateral sidebar folds into its gem rail ──
+   The panel keeps its layout and slides under the edge, dimming like a facet turning
+   away from the light, while the rail it becomes shows through. --fold runs 0 → 1. */
+.sidebar-fold {
+  --fold-accent: #d9c4a8;
+}
+.sidebar-fold-ghost {
+  display: none;
+}
+.sidebar-fold[data-fold="collapse"] .fold-content > :not(.sidebar-fold-ghost) {
+  min-width: var(--fold-min);
+  transform-origin: left center;
+  transform: translateX(calc(var(--fold) * -32px)) scale(calc(1 - var(--fold) * 0.05));
+  opacity: calc(1 - var(--fold) * 1.1);
+  /* Keep the drag on a compositor layer; per-frame filters force extra paint. */
+  will-change: transform, opacity;
+}
+.sidebar-fold[data-side="right"][data-fold="collapse"] .fold-content > :not(.sidebar-fold-ghost) {
+  transform-origin: right center;
+  transform: translateX(calc(var(--fold) * 32px)) scale(calc(1 - var(--fold) * 0.05));
+}
+.sidebar-fold[data-fold="collapse"] .sidebar-fold-ghost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 44px;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  max-height: 40%; /* where the collapsed rail keeps its gems */
+  overflow: hidden;
+  padding-block: 8px;
+  pointer-events: none;
+  opacity: clamp(0, calc(var(--fold) * 1.6 - 0.3), 1);
+  transform: translateX(calc((1 - var(--fold)) * -10px));
+}
+.sidebar-fold[data-side="right"][data-fold="collapse"] .sidebar-fold-ghost {
+  left: auto;
+  right: 0;
+  transform: translateX(calc((1 - var(--fold)) * 10px));
+}
+.sidebar-fold-ghost-gem {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 8px;
+}
+
+/* The edge becomes a facet line in the project's stone, brighter as the fold deepens. */
+.sidebar-fold[data-fold] .fold-handle {
+  /* Fallback for webviews without calc() inside color-mix: a plain stone edge. */
+  background: var(--fold-accent);
+  background: color-mix(in srgb, var(--fold-accent) calc(25% + var(--fold) * 75%), transparent);
+  box-shadow: 0 0 calc(var(--fold) * 16px) color-mix(in srgb, var(--fold-accent) 55%, transparent);
+}
+.sidebar-fold[data-armed] .fold-handle {
+  background: var(--fold-accent);
+}
+/* Unfolding: the pulled space takes a faint tint of the stone. */
+.sidebar-fold[data-fold="expand"] {
+  background-image: linear-gradient(
+    90deg,
+    transparent 44px,
+    color-mix(in srgb, var(--fold-accent) calc(var(--fold) * 18%), transparent)
+  );
+}
+.sidebar-fold[data-side="right"][data-fold="expand"] {
+  background-image: linear-gradient(
+    270deg,
+    transparent 44px,
+    color-mix(in srgb, var(--fold-accent) calc(var(--fold) * 18%), transparent)
+  );
+}
+
+/* Reduced motion: the fold still dims and the rail still shows, without movement. */
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-force-motion]) .sidebar-fold[data-fold] .fold-content > :not(.sidebar-fold-ghost),
+  html:not([data-force-motion]) .sidebar-fold[data-fold] .sidebar-fold-ghost {
+    transform: none;
+  }
+}
