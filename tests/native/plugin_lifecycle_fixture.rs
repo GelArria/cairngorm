@@ -142,15 +142,12 @@ impl Server {
                 {"name":"read_checkpoint","inputSchema":{"type":"object"},"annotations":{"readOnlyHint":true},"_meta":{"ui":{"visibility":["app"]}}}
             ]}),
             "resources/read" => {
-                let snapshot = state
-                    .sessions
-                    .get(&session)
-                    .and_then(|s| s.snapshot.clone())
-                    .unwrap_or(json!({"checkpointId":"old","shapes":[],"assets":[],"bindings":[]}));
-                let mut bootstrap = snapshot;
-                bootstrap["sessionId"] = json!(format!("fresh-{session}"));
-                bootstrap["mcpSessionId"] = json!(session);
-                bootstrap["canvasId"] = json!("canvas-A");
+                // The deployed resource is session-scoped, not bound to a canvas.
+                let bootstrap = json!({
+                    "sessionId": format!("fresh-{session}"),
+                    "mcpSessionId": session,
+                    "methodMap": {"keep": true}
+                });
                 let html=format!("<html><script>window.__TLDRAW_BOOTSTRAP__=JSON.parse(atob(\"{}\"));</script></html>",STANDARD.encode(bootstrap.to_string()));
                 json!({"contents":[{"uri":"ui://canvas/main","mimeType":"text/html;profile=mcp-app","text":html,"_meta":{"ui":{}}}]})
             }

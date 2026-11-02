@@ -73,9 +73,22 @@ fn recovery_overlays_only_snapshot_data_and_rejects_changed_bootstrap_contracts(
     let missing_canvas =
         STANDARD.encode(json!({"sessionId":"fresh","mcpSessionId":"fresh-transport"}).to_string());
     let missing_canvas = format!("<script>{BOOTSTRAP}{missing_canvas}\"));</script>");
-    assert!(restore_html(&call, &missing_canvas)
-        .unwrap_err()
-        .contains("has no canvasId"));
+    let restored = restore_html(&call, &missing_canvas).unwrap();
+    assert!(restored.starts_with(&missing_canvas));
+    assert!(restored.contains("data-cairngorm-canvas="));
+    for invalid in [
+        json!({"sessionId":"fresh","canvasId":null}),
+        json!({"sessionId":"fresh","canvasId":""}),
+        json!({"sessionId":"fresh","canvasId":42}),
+        json!({"sessionId":""}),
+        json!({"mcpSessionId":"transport-only"}),
+    ] {
+        let html = format!(
+            "<script>{BOOTSTRAP}{}\"));</script>",
+            STANDARD.encode(invalid.to_string())
+        );
+        assert!(restore_html(&call, &html).is_err());
+    }
     super::super::release_terminal(&terminal);
 }
 

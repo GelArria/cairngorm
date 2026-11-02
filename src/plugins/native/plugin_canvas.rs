@@ -181,10 +181,14 @@ pub fn restore_html(call: &Call, html: &str) -> Result<String, String> {
         .map_err(|_| "Invalid tldraw bootstrap encoding.")?;
     let bootstrap: Value =
         serde_json::from_slice(&bytes).map_err(|_| "Invalid tldraw bootstrap JSON.")?;
-    if !bootstrap["canvasId"].is_string() {
-        return Err("The refreshed tldraw resource has no canvasId. Recovery is blocked; the current view has been kept.".into());
-    }
-    if !bootstrap["sessionId"].is_string() || bootstrap["canvasId"] != snapshot["canvasId"] {
+    // Resources are session-scoped; only an explicit conflicting canvas blocks recovery.
+    if !bootstrap["sessionId"]
+        .as_str()
+        .is_some_and(|id| !id.is_empty())
+        || bootstrap
+            .get("canvasId")
+            .is_some_and(|id| id != &snapshot["canvasId"])
+    {
         return Err("The refreshed tldraw resource belongs to another canvas; the current view has been kept.".into());
     }
     let data = STANDARD.encode(serde_json::to_vec(&snapshot).map_err(|e| e.to_string())?);

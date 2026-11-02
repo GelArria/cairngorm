@@ -26,38 +26,48 @@ afterEach(() => {
   delete (window as any).__TLDRAW_BOOTSTRAP__;
 });
 
-it("overlays acknowledged data while preserving all fresh transport fields", () => {
-  const bootstrap = {
-    canvasId: "canvas-A",
-    sessionId: "fresh",
-    mcpSessionId: "fresh-mcp",
-    workerOrigin: "https://worker.example",
-    methodMap: { "tools/call": "fresh-method" },
-    shapes: [],
-    arbitraryTransportField: 42,
-  };
-  (window as any).__TLDRAW_BOOTSTRAP__ = bootstrap;
-  const script = document.createElement("script");
-  script.dataset.cairngormCanvas = btoa(
-    String.fromCharCode(...new TextEncoder().encode(JSON.stringify(data))),
-  );
-  vi.spyOn(document, "currentScript", "get").mockReturnValue(script);
-  new Function(restore)();
-  expect((window as any).__TLDRAW_BOOTSTRAP__).toEqual({ ...bootstrap, ...data });
-  expect(bootstrap).toMatchObject({
-    sessionId: "fresh",
-    mcpSessionId: "fresh-mcp",
-    workerOrigin: "https://worker.example",
-    methodMap: { "tools/call": "fresh-method" },
-    arbitraryTransportField: 42,
-  });
-});
+it.each([{}, { canvasId: "canvas-A" }])(
+  "overlays acknowledged data on a session-scoped or canvas-scoped resource: %j",
+  (identity) => {
+    const bootstrap = {
+      ...identity,
+      sessionId: "fresh",
+      mcpSessionId: "fresh-mcp",
+      workerOrigin: "https://worker.example",
+      methodMap: { "tools/call": "fresh-method" },
+      shapes: [],
+      arbitraryTransportField: 42,
+    };
+    (window as any).__TLDRAW_BOOTSTRAP__ = bootstrap;
+    const script = document.createElement("script");
+    script.dataset.cairngormCanvas = btoa(
+      String.fromCharCode(...new TextEncoder().encode(JSON.stringify(data))),
+    );
+    vi.spyOn(document, "currentScript", "get").mockReturnValue(script);
+    new Function(restore)();
+    expect((window as any).__TLDRAW_BOOTSTRAP__).toEqual({ ...bootstrap, ...data });
+    expect(bootstrap).toMatchObject({
+      sessionId: "fresh",
+      mcpSessionId: "fresh-mcp",
+      workerOrigin: "https://worker.example",
+      methodMap: { "tools/call": "fresh-method" },
+      arbitraryTransportField: 42,
+    });
+  },
+);
 
-it("rejects a different canvas rather than changing transport identity", () => {
-  (window as any).__TLDRAW_BOOTSTRAP__ = { canvasId: "canvas-B" };
+it.each([
+  { sessionId: "fresh", canvasId: "canvas-B" },
+  { sessionId: "fresh", canvasId: null },
+  { sessionId: "fresh", canvasId: "" },
+  { sessionId: "fresh", canvasId: 42 },
+  { sessionId: "" },
+  {},
+])("rejects a conflicting canvas or invalid transport: %j", (identity) => {
+  (window as any).__TLDRAW_BOOTSTRAP__ = { ...identity };
   const script = document.createElement("script");
   script.dataset.cairngormCanvas = btoa(JSON.stringify({ ...data, shapes: [] }));
   vi.spyOn(document, "currentScript", "get").mockReturnValue(script);
   expect(() => new Function(restore)()).toThrow("does not match");
-  expect((window as any).__TLDRAW_BOOTSTRAP__).toEqual({ canvasId: "canvas-B" });
+  expect((window as any).__TLDRAW_BOOTSTRAP__).toEqual(identity);
 });

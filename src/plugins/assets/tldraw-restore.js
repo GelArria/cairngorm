@@ -5,10 +5,15 @@
   const bytes = Uint8Array.from(atob(encoded), (character) => character.charCodeAt(0));
   const snapshot = JSON.parse(new TextDecoder().decode(bytes));
   const bootstrap = window.__TLDRAW_BOOTSTRAP__;
-  if (!bootstrap || bootstrap.canvasId !== snapshot.canvasId) {
+  if (
+    !bootstrap ||
+    typeof bootstrap.sessionId !== "string" ||
+    !bootstrap.sessionId ||
+    (bootstrap.canvasId !== undefined && bootstrap.canvasId !== snapshot.canvasId)
+  ) {
     throw new Error("The tldraw checkpoint does not match this canvas.");
   }
-  for (const field of ["checkpointId", "shapes", "assets", "bindings"]) {
+  for (const field of ["canvasId", "checkpointId", "shapes", "assets", "bindings"]) {
     bootstrap[field] = snapshot[field];
   }
 })();

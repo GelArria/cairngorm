@@ -111,6 +111,20 @@ The deployed-plugin check selected by `CAIRNGORM_NATIVE_PLUGIN_CHECK=1` requires
 live setup. Native probes can create terminals, modify a test workspace, use external
 services or control windows. Use an isolated test project and read the test before running it.
 
+`native/plugin-reload-live.mjs` uses the isolated QA release profile described below and
+contacts the public tldraw service without a model or personal credentials. It creates a
+scratch MCP client and canvas, edits a label manually, verifies three acknowledged reloads
+and a new call to the same canvas, then checks that the source PTY still responds. It closes
+only its own QA child. Build that release first, then run:
+
+```sh
+CARGO_TARGET_DIR="$(pwd -W)/src-tauri/target/perf-baseline" npx tauri build --no-bundle --config tests/tauri.fresh-profile.json
+node tests/guard-cairngorm.mjs --isolated-browser --receipt logs/e2e/guard-tldraw-native.json -- node tests/native/plugin-reload-live.mjs
+```
+
+This native probe uses direct Playwright CDP attachment for the same navigation-guard
+limitation documented below; deterministic browser lifecycle tests still use TesterArmy.
+
 ### Native persistence, scheduler and release handoff (Windows, opt-in)
 
 These checks build and start a separate QA **release** executable, not an installer.
