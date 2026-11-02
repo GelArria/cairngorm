@@ -22,9 +22,26 @@
 `media/workspace.png` is the workspace demo image from the website (cairngorm.dev,
 `assets/demo/workspace.png` in the website repository): Claude Code, Codex CLI and Oh My Pi
 beside the editor with local sample replies. To refresh it, copy the website's current image.
-The two button SVGs in `media/` are local navigation-button images. `media/gem-dark.svg` and
-`media/gem-light.svg` are static renders of the app's logo mark (`CairngormMark`, full gem in
-its rest pose) with the obsidian and paper colors, chosen by GitHub's color scheme.
+`media/gem-dark.svg` and `media/gem-light.svg` are static renders of the app's logo mark
+(`CairngormMark`, full gem in its rest pose) with the obsidian and paper colors, chosen by
+GitHub's color scheme.
 
 Keep only curated documentation images here; test outputs and throwaway previews stay in
 ignored `logs/` and can be removed after review.
+
+## GitHub presentation
+
+The README supplies the repository's landing page. GitHub's About panel and social preview
+are separate repository settings; changing these files does not update those settings.
+Suggested metadata:
+
+| Setting     | Value                                                                            |
+| ----------- | -------------------------------------------------------------------------------- |
+| Description | A desktop workspace for coding agents, terminals, files and Git.                 |
+| Website     | `https://cairngorm.dev`                                                          |
+| Topics      | `ai-agents`, `terminal`, `developer-tools`, `tauri`, `mcp`, `rust`, `typescript` |
+
+`media/social-preview.png` is a 1280 × 640 sharing image composed from the existing gem
+and workspace demo. A repository administrator can upload it under **Settings → General →
+Social preview**. Edit the description, website and topics using the gear beside **About**
+on the repository's Code page. Refresh the social preview when the workspace demo changes.
