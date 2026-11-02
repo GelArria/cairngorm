@@ -1,6 +1,6 @@
 {
   "name": "cairngorm-agent-core",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Agent CLI with PI-compatible agent loop, runs as Tauri sidecar",
   "license": "MIT",
   "type": "module",

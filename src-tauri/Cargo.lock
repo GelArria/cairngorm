@@ -580,7 +580,7 @@ dependencies = [
 
 [[package]]
 name = "cairngorm"
-version = "0.4.2"
+version = "0.4.3"
 dependencies = [
  "backtrace",
  "base64 0.22.1",

@@ -1,6 +1,6 @@
 [package]
 name = "cairngorm"
-version = "0.4.2"
+version = "0.4.3"
 description = "Cairngorm — terminal and coding agent workspace"
 license = "MIT"
 edition = "2021"
