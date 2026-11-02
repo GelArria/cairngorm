@@ -127,7 +127,7 @@ test("Check for Updates says updates are not active until the channel is publish
       cmd === "update_check"
         ? Promise.resolve({
             state: "disabled",
-            current: "0.4.2",
+            current: "0.4.3",
             repo: "GelArria/Cairngorm",
             branch: "main",
             installable: false,
@@ -143,7 +143,7 @@ test("Check for Updates says updates are not active until the channel is publish
     .click();
   const dialog = app.getByTestId("update-dialog");
   await expect(dialog).toContainText("Automatic updates aren't active yet.");
-  await expect(dialog).toContainText("You're on version 0.4.2.");
+  await expect(dialog).toContainText("You're on version 0.4.3.");
   await expect(dialog).toContainText("GelArria/Cairngorm@main");
   await expect(dialog.getByRole("button", { name: /Install/ })).toHaveCount(0);
   await dialog.screenshot({ path: "logs/e2e/app-menu-updates.png" });
